@@ -49,6 +49,13 @@ async function start(): Promise<void> {
   routes(server)
 
   await server.start()
+
+  process.on('SIGTERM', async function() {
+    server.logger().warn('SIGTERM received, shutting down.')
+    await server.stop()
+    server.logger().warn('Server shutdown. Exiting..')
+    process.exit(0)
+  })
 }
 
 if (!process.env.GROUPME_BOTID || !process.env.GROUPME_TOKEN) {
