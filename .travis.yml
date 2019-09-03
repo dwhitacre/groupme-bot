@@ -6,7 +6,8 @@ script:
 node_js:
   - "12"
 env:
-  - HOST=localhost
-  - PORT=3000
-  - GROUPME_BOTID="botid"
-  - GROUPME_TOKEN="token"
+  global:
+    - HOST=localhost
+    - PORT=3000
+    - GROUPME_BOTID="botid"
+    - GROUPME_TOKEN="token"
