@@ -55,5 +55,8 @@
     "dotenv": "^8.1.0",
     "hapi-pino": "^6.0.2",
     "hapi-swagger": "^10.1.1"
+  },
+  "engines": {
+    "node": "12"
   }
 }
