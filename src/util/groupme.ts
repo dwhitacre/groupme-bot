@@ -38,7 +38,7 @@ export default class GroupMe {
 
   async botPost(text: string, pictureUrl?: string): Promise<boolean> {
     this.server.logger().debug({ msg: 'groupme.botPost sending message', text, pictureUrl })
-    console.log(this)
+
     const response = await this.callApi('post', 'bots/post', {
       payload: {
         /* eslint-disable @typescript-eslint/camelcase */
