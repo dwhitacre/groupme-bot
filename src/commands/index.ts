@@ -2,6 +2,7 @@ import { Server } from '@hapi/hapi'
 
 import help from './help'
 import list from './list'
+import ranks from './ranks'
 import rosters from './rosters'
 import rules from './rules'
 import { GroupMeHook } from '../routes/hooks'
@@ -21,6 +22,7 @@ export interface Commands {
 const commands: Commands = {
   help,
   list,
+  ranks,
   rosters,
   rules,
 }

@@ -11,3 +11,4 @@ env:
     - PORT=3000
     - GROUPME_BOTID="botid"
     - GROUPME_TOKEN="token"
+    - FP_MPBKEY="mpbkey"
