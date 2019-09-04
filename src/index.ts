@@ -3,6 +3,7 @@ import Hapi from '@hapi/hapi'
 
 import routes from './routes'
 import GroupMe from './util/groupme'
+import FantasyPros from './util/fantasypros'
 
 async function start(): Promise<void> {
   const server = new Hapi.Server({
@@ -46,6 +47,14 @@ async function start(): Promise<void> {
     return gm
   })
 
+  const fp = new FantasyPros(server, {
+    mpbBaseUrl: process.env.FP_MPBBASEURL || 'https://mpbnfl.fantasypros.com/',
+    mpbKey: process.env.FP_MPBKEY!,
+  })
+  server.decorate('server', 'fantasypros', function(): FantasyPros {
+    return fp
+  })
+
   routes(server)
 
   await server.start()
@@ -58,8 +67,18 @@ async function start(): Promise<void> {
   })
 }
 
-if (!process.env.GROUPME_BOTID || !process.env.GROUPME_TOKEN) {
-  console.error('Missing GROUPME_BOTID or GROUPME_TOKEN')
+if (!process.env.GROUPME_BOTID) {
+  console.error('Missing GROUPME_BOTID')
+  process.exit(1)
+}
+
+if (!process.env.GROUPME_TOKEN) {
+  console.error('Missing GROUPME_TOKEN')
+  process.exit(1)
+}
+
+if (!process.env.FP_MPBKEY) {
+  console.error('Missing FP_MPBKEY')
   process.exit(1)
 }
 
