@@ -19,7 +19,7 @@ export default class FantasyPros {
   }
 
   async mpbLeaguePowerRankings(
-    period: 'week' | 'draft' | 'dyn',
+    period: 'week' | 'draft' | 'dyn' | 'ros',
   ): Promise<
     | {
         periodName: string
