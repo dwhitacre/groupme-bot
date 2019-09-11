@@ -16,7 +16,7 @@ ${usage}`)
   const rankings = await server.fantasypros().mpbLeaguePowerRankings(period as 'week' | 'draft' | 'dyn' | 'ros')
 
   if (!rankings) {
-    await server.groupme().botPost('Failing to retrieve fantasy pros rankings.')
+    await server.groupme().botPost('Failed to retrieve fantasy pros rankings.')
     return
   }
 
