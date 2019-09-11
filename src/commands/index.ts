@@ -5,6 +5,7 @@ import list from './list'
 import ranks from './ranks'
 import rosters from './rosters'
 import rules from './rules'
+import standings from './standings'
 import { GroupMeHook } from '../routes/hooks'
 
 export interface CommandFn {
@@ -25,6 +26,7 @@ const commands: Commands = {
   ranks,
   rosters,
   rules,
+  standings,
 }
 
 export default commands

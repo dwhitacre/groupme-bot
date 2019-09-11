@@ -67,4 +67,50 @@ export default class FantasyPros {
       }>
     }
   }
+
+  async mpbLeagueProjectedStandings(): Promise<
+    | Array<{
+        rank: string
+        team: string
+        currentRecord: string
+        projRecord: string
+        rankChange: string
+        odds: string
+      }>
+    | false
+  > {
+    this.server.logger().debug('fantasypros.mpbLeagueProjectedStandings')
+
+    let standings: any = []
+    try {
+      const { payload } = await this.client.get(`analyzer_nfl/projectedStandings.jsp?key=${this.mpbKey}`, {})
+      const $ = cheerio.load(payload)
+
+      standings = $('table.StandingsTable tbody > tr')
+        .map(function(this: CheerioElement) {
+          return {
+            rank: $('td:nth-child(1)', this).text(),
+            team: $('td:nth-child(2)', this).text(),
+            currentRecord: $('td:nth-child(3)', this).text(),
+            projRecord: $('td:nth-child(4)', this).text(),
+            rankChange: $('td:nth-child(5)', this).text(),
+            odds: $('td:nth-child(6)', this).text(),
+          }
+        })
+        .get()
+    } catch (err) {
+      this.server.logger().error(err)
+      return false
+    }
+
+    this.server.logger().debug({ msg: 'fantasypros.mpbLeagueProjectedStandings standings result', standings })
+    return standings as Array<{
+      rank: string
+      team: string
+      currentRecord: string
+      projRecord: string
+      rankChange: string
+      odds: string
+    }>
+  }
 }
