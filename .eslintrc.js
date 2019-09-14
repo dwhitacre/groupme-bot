@@ -11,7 +11,7 @@ module.exports = {
   },
   rules: {
     "semi": ["error", "never"],
-    "quotes": ["error", "single"],
+    "quotes": ["error", "single", { "avoidEscape": true }],
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
   },
