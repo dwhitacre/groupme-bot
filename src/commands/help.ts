@@ -1,8 +1,10 @@
 import { Server } from '@hapi/hapi'
 
-import commands from './'
+import getCommands from './'
 
 async function run(server: Server, tokens: Array<string>): Promise<void> {
+  const commands = await getCommands(server)
+
   if (tokens.length <= 1) {
     await server.groupme().botPost(`Usage:
 !<command> [...args]

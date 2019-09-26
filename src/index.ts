@@ -1,5 +1,6 @@
 import 'dotenv/config'
 import Hapi from '@hapi/hapi'
+import drive from 'drive-db'
 
 import routes from './routes'
 import GroupMe from './util/groupme'
@@ -81,6 +82,16 @@ if (!process.env.FP_MPBKEY) {
   console.error('Missing FP_MPBKEY')
   process.exit(1)
 }
+
+if (!process.env.DRIVE_CUSTOM_COMMANDS) {
+  console.error('Missing DRIVE_CUSTOM_COMMANDS')
+  process.exit(1)
+}
+
+drive({
+  sheet: process.env.DRIVE_CUSTOM_COMMANDS,
+  cache: 0,
+})
 
 start().catch(err => {
   console.error(err)

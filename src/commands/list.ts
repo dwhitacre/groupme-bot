@@ -1,9 +1,10 @@
 import { Server } from '@hapi/hapi'
 
-import commands from './'
+import getCommands from './'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function run(server: Server, _: Array<string>): Promise<void> {
+  const commands = await getCommands(server)
   const commandsList = Object.keys(commands).sort()
 
   await server.groupme().botPost(
