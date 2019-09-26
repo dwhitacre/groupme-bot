@@ -2,7 +2,7 @@ import { Server, Request } from '@hapi/hapi'
 import Boom from '@hapi/boom'
 import Joi from '@hapi/joi'
 
-import commands from '../commands'
+import getCommands from '../commands'
 
 export interface GroupMeHook {
   attachments: Array<{
@@ -64,6 +64,7 @@ export function groupme(server: Server): void {
           .slice(1)
           .split(' ')
         const commandName = tokens[0]
+        const commands = await getCommands(server)
         const command = commands[commandName]
 
         if (!command) {
