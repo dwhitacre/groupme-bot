@@ -1,6 +1,7 @@
 import 'dotenv/config'
 import Hapi from '@hapi/hapi'
 import drive from 'drive-db'
+import { resolve } from 'path'
 
 import routes from './routes'
 import GroupMe from './util/groupme'
@@ -10,6 +11,11 @@ async function start(): Promise<void> {
   const server = new Hapi.Server({
     host: process.env.HOST || 'localhost',
     port: process.env.PORT || 3000,
+    routes: {
+      files: {
+        relativeTo: resolve(__dirname, '../public'),
+      },
+    },
   })
 
   const loggingPlugin: any = {
