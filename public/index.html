@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Dan Whitacre" />
+    <meta name="description" content="GroupMe Bot commands." />
+    <title>GroupMe Bot</title>
+    <link rel="icon" href="https://i.groupme.com/692x692.jpeg.4297e8fddfa643b7a9181d779c851d03" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" />
+    <link rel="stylesheet" href="./styles/milligram.min.css" />
+    <link rel="stylesheet" href="./styles/main.css" />
+  </head>
+  <body>
+    <main class="wrapper">
+      <nav class="navigation">
+        <section class="container" id="navigation">
+          <h1 class="title">GroupMe Bot</h1>
+        </section>
+      </nav>
+
+      <section class="container" id="commands">
+        <h3>Commands</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Command</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody id="commands-table-body"></tbody>
+        </table>
+      </section>
+
+      <section class="container" id="failed" style="display:none">
+        <p>
+          Sorry, the commands failed to load. Maybe refresh? ¯\_(ツ)_/¯
+        </p>
+      </section>
+
+      <footer class="footer">
+        <section class="container ">
+          <p>
+            Made with ♥. Licensed under the MIT License.
+          </p>
+        </section>
+      </footer>
+    </main>
+  </body>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script>
+    ;(function() {
+      function failed() {
+        $('#commands').hide()
+        $('#failed').show()
+      }
+
+      function td(text) {
+        return $('<td>').text(text)
+      }
+
+      $.get('../commands', function(data, status) {
+        if (status !== 'success') return failed()
+        if (!data) return failed()
+
+        var commandsList = Object.keys(data).sort()
+        var tbody = $('#commands-table-body')
+
+        commandsList.forEach(function(command) {
+          var tr = $('<tr>')
+            .append(td(data[command].usage))
+            .append(td(data[command].desc))
+          tbody.append(tr)
+        })
+      })
+    })()
+  </script>
+</html>
