@@ -60,7 +60,8 @@ export default async function get(server: Server): Promise<Commands> {
         cc.command.length > 0 && // need command
         cc.desc.length > 0 && // need desc
         (cc.message.length > 0 || cc.pictureurl.length > 0) && // need either message or pictureurl
-        (cc.pictureurl.length <= 0 || groupMeImageRegex.test(cc.pictureurl)) // need no pictureurl or looks like pictureurl url
+        (cc.pictureurl.length <= 0 || groupMeImageRegex.test(cc.pictureurl)) && // need no pictureurl or looks like pictureurl url
+        typeof commands[cc.command] === 'undefined' // cant override defaults
       ) {
         commands[cc.command] = createCustomCommand(cc.command, cc.desc, cc.message, cc.pictureurl)
       }
