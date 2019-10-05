@@ -94,8 +94,18 @@ if (!process.env.DRIVE_CUSTOM_COMMANDS) {
   process.exit(1)
 }
 
+if (!process.env.DRIVE_COMMANDS) {
+  console.error('Missing DRIVE_COMMANDS')
+  process.exit(1)
+}
+
 drive({
   sheet: process.env.DRIVE_CUSTOM_COMMANDS,
+  cache: 0,
+})
+
+drive({
+  sheet: process.env.DRIVE_COMMANDS,
   cache: 0,
 })
 
