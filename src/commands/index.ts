@@ -72,6 +72,28 @@ export default async function get(server: Server): Promise<Commands> {
         commands[cc.command] = createCustomCommand(cc.command, cc.desc, cc.message, cc.pictureurl, cc.disabled, cc.hidden)
       }
     })
+
+    const commandSettings: Array<{
+      command: string
+      desc: string
+      disabled: string
+      hidden: string
+    }> = await drive({
+      sheet: process.env.DRIVE_COMMANDS,
+      cache: 30,
+    })
+
+    commandSettings.forEach(cs => {
+      if (
+        cs.command.length > 0 && // need command
+        cs.desc.length > 0 && // need desc
+        typeof commands[cs.command] !== 'undefined' // command needs to exist
+      ) {
+        commands[cs.command].desc = cs.desc
+        commands[cs.command].enabled = cs.disabled !== 'x'
+        commands[cs.command].hidden = cs.hidden === 'x'
+      }
+    })
   } catch (err) {
     server.logger().error(err)
   }
