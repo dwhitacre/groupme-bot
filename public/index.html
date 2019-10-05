@@ -26,6 +26,7 @@
             <tr>
               <th>Command</th>
               <th>Description</th>
+              <th>Status</th>
             </tr>
           </thead>
           <tbody id="commands-table-body"></tbody>
@@ -60,6 +61,12 @@
         return $('<td>').text(text)
       }
 
+      function getStatusEmoji(command) {
+        if (!command.enabled) return '❌'
+        if (command.hidden) return '👻'
+        return '✔️'
+      }
+
       $.get('../commands', function(data, status) {
         if (status !== 'success') return failed()
         if (!data) return failed()
@@ -71,6 +78,8 @@
           var tr = $('<tr>')
             .append(td(data[command].usage))
             .append(td(data[command].desc))
+            .append(td(getStatusEmoji(data[command])))
+
           tbody.append(tr)
         })
       })

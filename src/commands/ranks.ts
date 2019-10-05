@@ -39,4 +39,6 @@ export default {
   desc: 'Display the FantasyPros power rankings.',
   usage,
   run,
+  enabled: true,
+  hidden: false,
 }

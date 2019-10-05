@@ -20,6 +20,8 @@ export default function register(server: Server): void {
             desc: string
             usage: string
             command: string
+            enabled: boolean
+            hidden: boolean
           }
         } = {}
 
@@ -29,6 +31,8 @@ export default function register(server: Server): void {
               desc: commands[commandName].desc,
               usage: commands[commandName].usage,
               command: commandName,
+              enabled: commands[commandName].enabled,
+              hidden: commands[commandName].hidden,
             }
           }
         }

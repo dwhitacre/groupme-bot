@@ -206,3 +206,8 @@ td {
   -moz-hyphens: auto;
   hyphens: auto;
 }
+
+td:last-child {
+  text-align: center;
+  padding-right: 1.5rem;
+}

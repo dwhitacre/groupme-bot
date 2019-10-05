@@ -10,6 +10,9 @@ async function run(server: Server, _: Array<string>): Promise<void> {
   await server.groupme().botPost(
     `Commands:
 ${commandsList
+  .filter(command => {
+    return !commands[command].hidden && commands[command].enabled
+  })
   .reduce((acc, curr) => {
     return `${acc}
 !${curr} -- ${commands[curr].desc}`
@@ -22,4 +25,6 @@ export default {
   desc: 'List the available commands.',
   usage: '!list',
   run,
+  enabled: true,
+  hidden: false,
 }

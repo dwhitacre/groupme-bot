@@ -28,4 +28,6 @@ export default {
   desc: 'Display help using commands.',
   usage: '!help [command]',
   run,
+  enabled: true,
+  hidden: false,
 }
