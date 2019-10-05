@@ -73,6 +73,12 @@ export function groupme(server: Server): void {
           return { status: false, msg }
         }
 
+        if (!command.enabled) {
+          const msg = `${commandName} is not enabled`
+          server.logger().debug('hooks.groupme', msg)
+          return { status: false, msg }
+        }
+
         try {
           await command.run(server, tokens, payload)
         } catch (err) {

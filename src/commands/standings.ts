@@ -29,4 +29,6 @@ export default {
   desc: 'Display the FantasyPros projected standings.',
   usage: '!standings',
   run,
+  enabled: true,
+  hidden: false,
 }
